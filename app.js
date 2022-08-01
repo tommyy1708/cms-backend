@@ -12,13 +12,16 @@ const path = require("path")
 // 引入静态文件中间件middle ware
 const static = require("koa-static")
 const nomatch = require("./router/nomatch")
+const bodyParser = require("koa-bodyparser")
 
 // async 是异步的.  除了ctx还有next
+// 让路由生效, 所有的app.use里面参数都是端口+callback
 
 app.use(cors())
-// 让路由生效, 所有的app.use里面参数都是端口+callback
+app.use(bodyParser())
 app.use(router.routes(),router.allowedMethods())
 app.use(static( path.join(__dirname,"static")))
+app.use(static( path.join(__dirname,"router/manage/upload")))
 router.get('/',async ctx=>{
     ctx.body='home page'
 })
@@ -33,7 +36,6 @@ app.use(async (ctx, next)=>{
         ctx.response.redirect('/404')
     }
 })
-
 
 app.listen(port, ()=>{
     console.log(`server is running at ${host}:${port}`);
