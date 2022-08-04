@@ -10,11 +10,12 @@ router.post('/', async ctx => {
     return;
   }
 
-  let { id,content,title ,subtitle} = ctx.request.body
+  let { id,content,title ,subtitle,date,author} = ctx.request.body
   let sql = `SELECT * FROM artical WHERE id='${id}'`
   let result = await queryFn(sql)
-  let sql1 = `UPDATE artical SET title='${title||''}', subtitle='${subtitle||''}',content='${content||''}',date='${date}', author='${author}' WHERE id='${id}'`;
+  let sql1 = `UPDATE artical SET title='${title}', subtitle='${subtitle||''}',content='${content||''}',date='${date||''}', author='${author||''}' WHERE id='${id}'`;
    await queryFn(sql1)
+   
   ctx.body =returnMsg(0, '文章修改成功',result[0])
 })
 

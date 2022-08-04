@@ -1,6 +1,6 @@
 const Router = require("koa-router")
 const router = new Router()
-const {query} = require('../../utils')
+const utils = require('../../utils')
 const login = require('./login')
 const register = require('./register')
 const info = require('./info')
@@ -8,11 +8,10 @@ const upload = require('./upload')
 const article = require('./article')
 
 router.get('/', async ctx =>{
-
     let result = await new Promise((resolve, reject)=>{
-        query(`SELECT * FROM user`, (err, rows)=>{
+        utils.query(`SELECT * FROM user`, (err, rows)=>{
             if(err) reject(err);
-            resolve(rows)
+            resolve(rows);
         })
     })
     ctx.body = result
