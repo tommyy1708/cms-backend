@@ -17,14 +17,24 @@ const pool = mysql.createPool({
     port:3306,
     database:"sys",
     user:"root",
-    password:"12345678",
+    password:"root123",
 })
 
 const query = (sql,callback) =>{
     pool.getConnection(function(err,connection){
+        if(err) return console.log(err.sqlMessage)
         connection.query(sql, function(err, rows){
             callback(err,rows)
             connection.release()
+        })
+    })
+}
+
+const queryFn = (sql) =>{
+    return new Promise((resolve, reject)=>{
+        query(sql, (err, rows)=>{
+            if(err) reject(err);
+            resolve(rows)  // 返回的是数组  [{}]
         })
     })
 }
@@ -35,16 +45,6 @@ const returnMsg = (errCode,message,data) =>{
         message:message || "",
         data:data || {}
     }
-  
-}
-
-const queryFn = (sql) =>{
-    return new Promise((resolve, reject)=>{
-        query(sql, (err, rows)=>{
-            if(err) reject(err);
-            resolve(rows)  // 返回的是数组  [{}]
-        })
-    })
 }
 
 const jwtVerify = (token) =>{
