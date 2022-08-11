@@ -4,7 +4,6 @@ const { returnMsg, queryFn, jwtVerify } = require('../../../utils')
 
 router.post('/', async ctx => {
   let token = ctx.request.headers['cms-token']
-
   if (!jwtVerify(token)) {
     ctx.body = returnMsg(2, '查询用户失败或者token过期')
     return;

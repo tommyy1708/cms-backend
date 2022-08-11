@@ -16,6 +16,8 @@ router.get('/', async ctx =>{
     })
     ctx.body = result
 })
+
+
 router.use('/login', login.routes(), login.allowedMethods())
 router.use('/register', register.routes(), register.allowedMethods())
 router.use('/info', info.routes(), info.allowedMethods())
