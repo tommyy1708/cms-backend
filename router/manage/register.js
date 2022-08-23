@@ -10,7 +10,7 @@ router.post('/', async ctx => {
         if (result.length > 0) {
             ctx.body = returnMsg(1, 'user exsisted')
         } else {
-            let sql1 = `INSERT INTO user VALUES (null, '${username}','${password}',null, 'avatar.jpeg', null,'normal',1)`
+            let sql1 = `INSERT INTO user VALUES (null, '${username}','${password}',null, 'normal',1,'avatar.jpeg', null)`
             await queryFn(sql1)
             ctx.body = returnMsg(0, 'register success', result);
         }

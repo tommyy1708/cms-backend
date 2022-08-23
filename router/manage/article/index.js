@@ -3,9 +3,9 @@ const router = new Router()
 const list = require('./list')
 const info = require('./id')
 const edit = require('./edit')
+const add = require('./add')
 const delete1 = require('./delite_ar')
 const { queryFn } = require("../../../utils")
-const add = require('./add')
 
 
 router.get('/', async ctx=>{
