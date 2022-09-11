@@ -17,7 +17,13 @@ const bodyParser = require("koa-bodyparser")
 // async 是异步的.  除了ctx还有next
 // 让路由生效, 所有的app.use里面参数都是端口+callback
 
-app.use(cors())
+app.use(cors({
+    origin:function(ctx){
+        if(ctx.url==='/manage/upload'){
+            return "*"
+        }
+    }
+}));
 app.use(bodyParser())
 app.use(router.routes(),router.allowedMethods())
 app.use(static( path.join(__dirname,"static")))

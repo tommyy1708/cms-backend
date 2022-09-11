@@ -7,6 +7,8 @@ const info = require('./info')
 const upload = require('./upload')
 const article = require('./article')
 const namelist = require('./nameList')
+const editable = require('./editable')
+const player = require('./player')
 
 router.get('/', async ctx =>{
     let result = await new Promise((resolve, reject)=>{
@@ -25,5 +27,7 @@ router.use('/info', info.routes(), info.allowedMethods())
 router.use('/upload', upload.routes(),upload.allowedMethods())
 router.use('/article', article.routes(),article.allowedMethods())
 router.use('/namelist', namelist.routes(),namelist.allowedMethods())
+router.use('/editable', editable.routes(),editable.allowedMethods())
+router.use('/player', player.routes(),player.allowedMethods())
 
 module.exports = router;

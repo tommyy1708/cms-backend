@@ -8,7 +8,7 @@ router.post('/', async ctx => {
     if (username && password) {
         let sql = `SELECT * FROM user WHERE username='${username}'`
         let result = await queryFn(sql)
-        if (result.length > 0) {
+        if (result.length > 0 && password === result[0].password) {
             let token = jwt.sign(
                 { username, password },
                 'laoniunencao',
@@ -18,15 +18,15 @@ router.post('/', async ctx => {
             await queryFn(addToken)
             let result1 = await queryFn(sql)
             let obj = {
-                username:result1[0].username,
-                'cms-token':result1[0].token,
-                avatar:result1[0].avatar,
-                player:result1[0].player,
-                editable:result1[0].editable
+                username: result1[0].username,
+                'cms-token': result1[0].token,
+                avatar: result1[0].avatar,
+                player: result1[0].player,
+                editable: result1[0].editable
             }
             ctx.body = returnMsg(0, '登陆成功', obj)
         } else {
-            ctx.body = returnMsg(2, 'user not exist')
+            ctx.body = returnMsg(2, 'user not exist or password not currect')
         }
     } else {
         ctx.body = returnMsg(1, 'element worng')
